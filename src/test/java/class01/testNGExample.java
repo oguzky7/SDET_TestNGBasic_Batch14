@@ -14,43 +14,46 @@ import java.util.concurrent.TimeUnit;
 public class testNGExample {
     public static WebDriver driver;
 
-    @BeforeMethod
+    //    writing down all the pre conditions for a test case
+    @BeforeMethod(alwaysRun = true)
     public void SetupBrowser(){
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+        driver=new ChromeDriver();
         driver.get("http://hrm.syntaxtechs.net/humanresources/symfony/web/index.php/auth/login");
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
     }
 
-    @AfterMethod()
+    //    post conditions for test case
+    @AfterMethod(alwaysRun = true)
     public void closeBrowser() throws InterruptedException {
-        Thread.sleep(1500);
+        Thread.sleep(3000);
         driver.quit();
     }
 
-    //  --Test1--
-    //  go to syntax HRMS
-    //  enter the username and password, verify that u logged in
-    //  close the browser
-
-    @Test
+    //    ----Test1---
+//    goto syntax Hrms
+//    enter the username and password , verify that u logged in
+//    close the browser
+    @Test(groups = "smoke")
     public void LoginFunctionality(){
-        WebElement userName = driver.findElement(By.xpath("//input[@id='txtUsername']"));
+        WebElement userName = driver.findElement(By.xpath("//input[@name='txtUsername']"));
         userName.sendKeys("admin");
-        WebElement password = driver.findElement(By.xpath("//input[@id='txtPassword']"));
+        WebElement password = driver.findElement(By.xpath("//input[@id = 'txtPassword']"));
         password.sendKeys("Hum@nhrm123");
-        WebElement login = driver.findElement(By.xpath("//input[@id='btnLogin']"));
-        login.click();
+        WebElement logIn = driver.findElement(By.xpath("//*[@id='btnLogin']"));
+        logIn.click();
     }
-    //  --Test2--
-    //  go to syntax HRMS
-    //  verify the login button is there
-    //  close the browser
+    //    ----Test2---
+//    goto syntax Hrms
+//    verify the  password is there
+//    close the browser
     @Test
-    public void LoginBtnVerification(){
-        WebElement login = driver.findElement(By.xpath("//input[@id='btnLogin']"));
-        System.out.println(login.isDisplayed());
+    public void PsswordBoxVerification(){
+
+        WebElement password = driver.findElement(By.xpath("//input[@id = 'txtPassword']"));
+        System.out.println( password.isDisplayed());
+
     }
 
 

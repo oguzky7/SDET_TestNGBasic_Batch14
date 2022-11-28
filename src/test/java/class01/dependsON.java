@@ -6,7 +6,7 @@ public class dependsON {
 
     @Test
     public void Login(){
-        System.out.println(4/0);
+        System.out.println("Logged in");
     }
 
     @Test(dependsOnMethods = {"Login"})
